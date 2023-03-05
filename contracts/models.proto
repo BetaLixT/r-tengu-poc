@@ -1,0 +1,89 @@
+// [START declaration]
+syntax = "proto3";
+package tengu;
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "techunicorn.com/udc-core/tengu/pkg/domain/contracts";
+
+message StringListResponse {
+  repeated string items = 1;
+}
+
+// [START file resource]
+message FileEvents {
+  repeated FileEvent file_events = 1;
+}
+
+message FileEvent {
+  uint64 id = 1;
+  optional string saga_id = 2;
+  string stream = 3;
+  string stream_id = 4;
+  uint64 version = 5;
+  string event = 6;
+  google.protobuf.Timestamp event_time = 7;
+  string trace_id = 8;
+  string request_id = 9;
+  FileData data = 10;
+}
+
+message FileData {
+  bool is_public = 2;
+  repeated string tags = 3;
+  repeated string allowed_types = 4;
+  int64 max_bytes = 5;
+  string location = 6;
+  map<string, string> processed_locations = 7;
+  bool valid = 8;
+}
+
+message CreateFileCommand {
+  bool is_public = 1;
+  repeated string tags = 2;
+  repeated string allowed_types = 3;
+  int64 max_bytes = 4;
+}
+
+message ValidateFilesCommand {
+  repeated string ids = 1;
+}
+
+message DeleteFilesCommand {
+  repeated string ids = 1;
+}
+
+message RegisterProcessedCommand {
+  string id = 1;
+  map<string, string> processed_locations = 2;
+}
+
+message PublicCDNEndpointQuery {
+  string endpoint = 1;
+}
+
+message ListInvalidFilesOlderThanQuery {
+  google.protobuf.Timestamp older_than = 1;
+}
+
+// [END file resource]
+
+// [START file session]
+message CreateSessionCommand {
+  string id = 1;
+  uint32 permissions = 2;
+  google.protobuf.Timestamp expires_on = 3;
+  repeated string file_ids = 4;
+}
+
+message ExpireSessionCommand {
+  string id = 1;
+}
+
+message SessionCreatedResponse {
+  string id = 1;
+  string token = 2;
+  string upload_endpoint = 3;
+}
+// [END file session]
