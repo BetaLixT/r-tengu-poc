@@ -1,4 +1,4 @@
-// [START declaration]
+// [START declaration]git@github.com:BetaLixT/r-tengu-poc.git
 syntax = "proto3";
 package tengu;
 
