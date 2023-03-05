@@ -2,8 +2,7 @@
 syntax = "proto3";
 package tengu;
 
-import "proto/contracts/models.proto";
-import "proto/custom/annotations.proto";
+import "models.proto";
 
 option go_package = "pkg/app/server/contracts";
 
@@ -11,50 +10,14 @@ option go_package = "pkg/app/server/contracts";
 service Files {
   // Commands
 
-  rpc Create(CreateFileCommand) returns (FileEvent) {
-    option (custom.documentation) = {
-      description: "creates a file with no content",
-      summary: "creates file",
-      tags: ["private"]
-    };
-  }
-  rpc Validate(ValidateFilesCommand) returns (FileEvents) {
-    option (custom.documentation) = {
-      description: "validates existing file",
-      summary: "validates file",
-      tags: ["private"]
-    };
-  }
-  rpc Delete(DeleteFilesCommand) returns (FileEvents) {
-    option (custom.documentation) = {
-      description: "delete existing file",
-      summary: "delete file",
-      tags: ["private"]
-    };
-  }
-  rpc RegisterProcessed(RegisterProcessedCommand) returns (FileEvent) {
-    option (custom.documentation) = {
-      description: "register processed files to existing file",
-      summary: "register processed file",
-      tags: ["private"]
-    };
-  }
-  rpc ListInvalidOlderThan(ListInvalidFilesOlderThanQuery) returns (StringListResponse) {
-    option (custom.documentation) = {
-      description: "list invalid files older than time",
-      summary: "list old invalid files",
-      tags: ["private"]
-    };
-  }
+  rpc Create(CreateFileCommand) returns (FileEvent) {}
+  rpc Validate(ValidateFilesCommand) returns (FileEvents) {}
+  rpc Delete(DeleteFilesCommand) returns (FileEvents) {}
+  rpc RegisterProcessed(RegisterProcessedCommand) returns (FileEvent) {}
+  rpc ListInvalidOlderThan(ListInvalidFilesOlderThanQuery) returns (StringListResponse) {}
 
   // Queries
 
-  rpc GetPublicCDNEndpoint(PublicCDNEndpointQuery) returns (FileEvent) {
-    option (custom.documentation) = {
-      description: "register processed files to existing file",
-      summary: "register processed file",
-      tags: ["private"]
-    };
-  }
+  rpc GetPublicCDNEndpoint(PublicCDNEndpointQuery) returns (StringResponse) {}
 }
 // [END files resource]

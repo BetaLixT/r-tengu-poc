@@ -11,13 +11,17 @@ message StringListResponse {
   repeated string items = 1;
 }
 
+message StringResponse {
+  string item = 1;
+}
+
 // [START file resource]
 message FileEvents {
   repeated FileEvent file_events = 1;
 }
 
 message FileEvent {
-  uint64 id = 1;
+  string id = 1;
   optional string saga_id = 2;
   string stream = 3;
   string stream_id = 4;
